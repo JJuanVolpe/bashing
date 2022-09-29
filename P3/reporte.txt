@@ -1,0 +1,18 @@
+USUARIO | EXT - N° Lineas
+juancito ext:sh y n° lineas:355
+juancito ext:sh y n° lineas:355
+juancito ext:txt y n° lineas:396
+juancito ext:pdf y n° lineas:88
+juancito ext:ppipooooo y n° lineas:0
+juancito ext:ppipooooo y n° lineas:0
+juancito ext:pdf y n° lineas:88
+juancito ext:.odf y n° lineas:0
+juancito ext:.pptx y n° lineas:0
+juancito ext: y n° lineas:0
+juancito ext:.sh y n° lineas:0
+juancito ext:sh y n° lineas:350
+juancito ext:sh y n° lineas:352
+juancito ext:sh y n° lineas: 353
+juancito ext:txt y n° lineas: 398
+juancito   ext:txt y n° lineas: 398 
+juancito ext: y n° lineas: 0
