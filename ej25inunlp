@@ -1,0 +1,208 @@
+
+#lo encontrè y lo sumo.
+
+
+
+#!/bin/bash
+#agrego al arreglo  los nombres de los usuarios del sistema pertenecientes al grupo users pasado como  parametro $1
+#y lo corto con el cut para que me aparesca los nombres 
+usuarios=($(cat /etc/group | grep "$1" | cut -d ":" -f4 ))
+retornar(){
+    echo "el elemento de la posicion pasada es:${usuarios[$3]}" 
+} 
+longitud(){
+ echo "la longitud del arreglo son:${#usuarios[@]}"
+} 
+imprimir(){ 
+echo "los elementos del arreglo son:${usuarios[@]}"
+} 
+if [ $# -gt  3  ]
+then 
+   echo "error de cantidad de parametros"
+fi  
+#$2 para poner las opciones 
+case $2 in  
+    "-b")
+       retornar
+    ;;
+    "l")
+       longitud
+    ;; 
+    "i")
+      imprimir 
+    ;; 
+    "*")
+     echo "opcion incorrecta"
+    ;;
+ esac
+exit  0  
+
+
+·
+
+
+#!/bin/bash
+#me fijo que sea la cantidad de parametros pasada"
+if [ $# -ne 3 ]
+then 
+    echo "error de cantidad de  pasaje de parametro"
+    exit 1 
+fi 
+#me fijo que sea un directorio el primer parametro 
+if [ ! -d $1 ]
+then 
+    echo " el primer parametro no   es un directorio existente"
+    exit 2 
+fi 
+#me fijo si el tercer parametro es decir la cadena si  es nulo 
+if [ -z $3 ] 
+then 
+   echo " el tercer parametro es nulo"
+   exit 3 
+fi
+cd $1 
+case  $2 in 
+   "-a")
+      for i in $(ls);
+      do 
+       mv $i $i$3
+      done
+    ;;
+    "-b")
+      for i in $(ls);
+      do 
+      mv $i  $3$i
+      done
+    ;;
+   "*")
+    echo " el segundo parametro debe ser a o b "
+    exit 4 
+  ;;
+ esac
+exit 0
+
+
+
+#!/bin/bash  
+# ($#) contiene la cantidad de argumentos pasados  
+if [ $# -eq 0 ]
+then 
+  echo "error de cantidad de parametros"
+fi 
+#uso el indice para ver de las posiciones si son impares
+indice=0 
+#uso la cantinex para informar la cantidad de archivos o directorios inexistentes
+cantinex=0
+# ($*) contiene la lista de todos los argumentos 
+
+echo "$#"
+
+echo "$*"
+
+for i in $*
+do 
+  if [ $(expr $indice % 2 ) -eq 1 ]
+  then 
+     #si existe el archivo o directorio
+     if [ -e $i ]
+     then 
+       if [ -d $i ] 
+       then 
+         echo " es un directorio "
+       fi
+       if [ -f $i ]
+       then
+         echo "es un archivo" 
+       fi 
+     else 
+       let cantinex++ 
+     fi 
+  fi 
+
+  let indice++ 
+
+done 
+echo "la cantidad de archivos o directorios inexisten son:$cantinex"
+exit 0  
+29.
+#!/bin/bash
+#ecuentro con el comando find en /home los archivos con terminacion .doc  y ademas borro los espacion en blanco
+#en el que agrego en el arreglo esos archivos con esa terminacion
+archivos= ($( find /home -name "*.doc"))
+verArchivo(){
+#voy recorriendo el arreglo
+for i in ${archivos[@]}
+do 
+   #si los archivos que tengo en el arreglo de terminacion .doc es igual al que estoy pasando que es .doc
+   if [ "$i"="$1" ]
+   then 
+    echo "se encontro el archivo"
+    return 10
+   else 
+    echo " no se encontro el archivo
+    return 5 
+   fi 
+done 
+} 
+cantidadArchivos(){
+echo "la cantidad de archivos del /home con terminación .doc son:${#archivos[@]}"
+}
+eliminar(){
+if [ $# -ne 1]
+then 
+  echo " error de cantidad de parametros" 
+fi 
+echo " quieres eliminar archivo logicamente "
+read decision
+pos=0
+#busco si encontre el archivo
+for i in ${archivos[@]}
+do
+  if [ "$1"="$i"]
+  then 
+   #encontre el nombre del archivo y estoy en la posicion donde lo encontre
+   echo "elemento existe"
+   break 
+  fi 
+  else 
+   echo "archivo no encontrado"
+   return 10 
+  let pos++
+done 
+if ["$decision"="si" ]
+then 
+ unset archivos[$pos] 
+archivos=(${archivos[@]}
+fi
+else 
+  unset archivos[$pos] 
+  archivos=(${archivos[@]}
+  #borro del filesystem
+  rm /home $1 
+fi
+exit 0 
+   
+   28.
+   #!/bin/bash 
+if [ $# -ne 1 ]
+then 
+   echo "error de cantidad de parametros"  
+fi  
+#me fiji si no es directorio  y devuelvo error 4 
+if [ ! -d $1 ]
+then 
+  echo " no existe el directorio "
+  exit 4 
+fi  
+cont=0
+#me posiciono donde esta el directorio 
+cd $1 
+for i in $(ls)
+do 
+ if [ -f $i ] && [ -r $i ] [ -w $i ]
+ then 
+   let cont++
+  fi 
+done 
+echo "la cantidad de archivos que en el $(pwd) se encuentra es:$cont"
+exit 0 
