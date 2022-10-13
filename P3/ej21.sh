@@ -13,6 +13,7 @@ push_element () {
 }
 
 pop_element () {
+   $1?
    stack+=${myarray[1]}
 }
 
