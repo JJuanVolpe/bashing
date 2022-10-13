@@ -5,9 +5,6 @@
 # 
 Comment
 
-for i in $*; do
-    echo "$i"                                                                                
-done
 echo "##################################################"
 if [[ "$#" != "0" ]]; then
     counter=0
